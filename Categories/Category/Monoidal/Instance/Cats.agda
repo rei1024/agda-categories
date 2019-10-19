@@ -66,7 +66,7 @@ module CatsCartesianClosed {o : Level} where
       ; product = BinaryProducts.product P.Cats-has-all
       ; eval = eval
       ; λg = λg {A} {B}
-      ; β = {!!}
+      ; β = {!β!}
       ; λ-unique = {!!}
       }
     }
