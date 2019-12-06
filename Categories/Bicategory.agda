@@ -25,7 +25,7 @@ record Bicategory o ℓ e t : Set (suc (o ⊔ ℓ ⊔ e ⊔ t)) where
 
   open Enriched enriched public
   module Cats = Category (Cats o ℓ e)
-  module hom {A B} = Category (hom A B)  
+  module hom {A B} = Category (hom A B)
 
   open Functor
 
@@ -77,29 +77,17 @@ record Bicategory o ℓ e t : Set (suc (o ⊔ ℓ ⊔ e ⊔ t)) where
   h ▷ α = id₂ ⊚₁ α
 
   unitorˡ : ∀ {A B} {f : A ⇒₁ B} → Mor._≅_ (hom A B) (id₁ ∘ₕ f) f
-  unitorˡ {_} {_} {f} = record
-    { from = unitˡ.⇒.η (_ , f)
-    ; to   = unitˡ.⇐.η (_ , f)
-    ; iso  = unitˡ.iso (_ , f)
-    }
+  unitorˡ {_} {_} {_} = unitˡ.FX≅GX
 
   module unitorˡ {A B f} = Mor._≅_ (unitorˡ {A} {B} {f})
 
   unitorʳ : ∀ {A B} {f : A ⇒₁ B} → Mor._≅_ (hom A B) (f ∘ₕ id₁) f
-  unitorʳ {_} {_} {f} = record
-    { from = unitʳ.⇒.η (f , _)
-    ; to   = unitʳ.⇐.η (f , _)
-    ; iso  = unitʳ.iso (f , _)
-    }
+  unitorʳ {_} {_} {_} = unitʳ.FX≅GX
 
   module unitorʳ {A B f} = Mor._≅_ (unitorʳ {A} {B} {f})
 
-  associator : ∀ {A B C D} {f : D ⇒₁ B} {g : C ⇒₁ D} {h : A ⇒₁ C} →  Mor._≅_ (hom A B) ((f ∘ₕ g) ∘ₕ h) (f ∘ₕ g ∘ₕ h)
-  associator {_} {_} {_} {_} {f} {g} {h} = record
-    { from = ⊚-assoc.⇒.η ((f , g) , h)
-    ; to   = ⊚-assoc.⇐.η ((f , g) , h)
-    ; iso  = ⊚-assoc.iso ((f , g) , h)
-    }
+  associator : ∀ {A B C D} {f : D ⇒₁ B} {g : C ⇒₁ D} {h : A ⇒₁ C} → Mor._≅_ (hom A B) ((f ∘ₕ g) ∘ₕ h) (f ∘ₕ g ∘ₕ h)
+  associator {_} {_} {_} {_} {_} {_} {_} = ⊚-assoc.FX≅GX
 
   module associator {A B C D} {f : C ⇒₁ B} {g : D ⇒₁ C} {h} = Mor._≅_ (associator {A = A} {B = B} {f = f} {g = g} {h = h})
 
@@ -135,7 +123,7 @@ record Bicategory o ℓ e t : Set (suc (o ⊔ ℓ ⊔ e ⊔ t)) where
 
   identity₂ˡ : id₂ ∘ᵥ α ≈ α
   identity₂ˡ = hom.identityˡ
-  
+
   identity₂ʳ : α ∘ᵥ id₂ ≈ α
   identity₂ʳ = hom.identityʳ
 
